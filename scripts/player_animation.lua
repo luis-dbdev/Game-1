@@ -9,9 +9,8 @@ local animations = require("scripts.jambo_animations")
 -- Idle is default animation
 local defaultAnimation = animations.idle_animation
 
-function Animation.new()
+function Animation.new(self)
     -- Constructor
-    local self = {}
     
     -- Private variables
     local current_animation = defaultAnimation -- Select default animation
@@ -95,7 +94,7 @@ function Animation.new()
     end
     end
 
-    function self.update(dt) current_animation:update(dt) end
+    function self.update_animation(dt) current_animation:update(dt) end
 
     function self.draw(x, y, sx, sy)
         local floor = math.floor

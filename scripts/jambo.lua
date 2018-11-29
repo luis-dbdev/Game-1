@@ -12,8 +12,8 @@ local Jambo = {}
 -- Jambo constructor
 local function newJambo()
   -- Create a new jambo table
-  local jambo = {Animation = Animation.new(),
-                  Move = Move}
+  local jambo = {Move = Move}
+  jambo = Animation.new(jambo)
   
   function jambo:update(dt)
     self.Move:update(dt)
@@ -23,45 +23,45 @@ local function newJambo()
     
     if direction == 0 then
       if not self.Move.jumping then
-        self.Animation.idle()
+        self.idle()
       else
-        self.Animation.jumping()
+        self.jumping()
       end
       
     elseif direction == 1 or direction == 4 then
-      self.Animation.running()
+      self.running()
       
     elseif direction == 2 then
       if self.Move.jumping then
-        self.Animation.jump_aimUp()
+        self.jump_aimUp()
       else
-        self.Animation.lookingUp()
+        self.lookingUp()
       end
       
     elseif direction == 3 or direction == 6 then
       if self.Move.jumping then
-        self.Animation.jump_aimDiagUp()
+        self.jump_aimDiagUp()
       else
-        self.Animation.runUpDiag()
+        self.runUpDiag()
       end
       
     elseif direction == 8 then
       if self.Move.jumping then
-        self.Animation.jump_aimDown()
+        self.jump_aimDown()
       else
-        self.Animation.lookingDownDiag()
+        self.lookingDownDiag()
       end
       
     elseif direction == 9 or direction == 12 then
       if self.Move.jumping then
-        self.Animation.jump_aimDiagDown()
+        self.jump_aimDiagDown()
       else
-        self.Animation.running()
+        self.running()
       end
       
     end
     
-    self.Animation.update(dt)
+    self.update_animation(dt)
   end
   
   function jambo:keypressed(key)

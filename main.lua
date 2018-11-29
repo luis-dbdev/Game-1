@@ -211,7 +211,7 @@ end
 function love.draw()
   --local spriteNum = math.floor(player1.Animation.animation.currentTime / player1.Animation.animation.duration * #player1.Animation.animation.quads) + 1
   --player1.Animation.animation:draw(x, y, sx, sy, spriteNum)
-  player1.Animation.draw(x, y, sx, sy)
+  player1.draw(x, y, sx, sy)
   if debugging then
     love.graphics.print(button_print, 100, 100)
     love.graphics.print(debug_string, 100, 200)
