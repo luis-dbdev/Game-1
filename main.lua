@@ -7,6 +7,9 @@ local next                      = next
 local Jambo = require("scripts.jambo")
 local player1 = Jambo.newJambo()
 
+-- Debugging
+local debug = require("scripts.debugging")
+
 
 local x = 10
 local y = 200
@@ -96,16 +99,7 @@ function love.update(dt)
   
   -- Update player animation
   player1:update(dt)
-  
-  
-  -- Time for the debugging strings (refresh)
-  if debugging then
-    t = t + dt
-    if t >= 2 then
-      t = t-2
-      button_print = 'button'
-    end
-  end
+
 
   
   -- Add gravity
@@ -209,12 +203,11 @@ end
 -------------------------------------------------------------------
 -------------------------------------------------------------------
 function love.draw()
-  --local spriteNum = math.floor(player1.Animation.animation.currentTime / player1.Animation.animation.duration * #player1.Animation.animation.quads) + 1
-  --player1.Animation.animation:draw(x, y, sx, sy, spriteNum)
   player1.draw(x, y, sx, sy)
+  
+  -- Debugging
   if debugging then
-    love.graphics.print(button_print, 100, 100)
-    love.graphics.print(debug_string, 100, 200)
+    debug.draw()
   end
 end
 
@@ -226,6 +219,12 @@ end
 -------------------------------------------------------------------
 function love.keypressed(key)
   player1:keypressed(key)
+  
+  -- debugging
+  if debugging then
+    debug.keypress(key)
+  end
+  
   if key == 'escape' then
     love.event.quit()
   end
@@ -261,15 +260,10 @@ end
 -------------------------------------------------------------------
 -------------------------------------------------------------------
 function love.gamepadpressed(joystick, button)
-  -- Add key to buffer
-  table.insert(keyBuffer, button)
-  -- Keep buffer size at 5 keys
-  if table.getn(keyBuffer) > 5 then
-    table.remove(keyBuffer, 1) -- Remove from front of queue
-  end
-  debug_string = ''
-  for i, key in ipairs(keyBuffer) do
-    debug_string = debug_string .. '    ' .. key
+  
+  -- Debugging
+  if debugging then
+    debug.buttonpress(button)
   end
   
   
